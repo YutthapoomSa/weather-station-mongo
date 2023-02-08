@@ -1,0 +1,140 @@
+{
+    "templateName": "แบบตรวจสอบแต่ละพื้นที่",
+    "title": "titleTesttttttttt",
+    "detail": "เอาไว้ให้ไอ้โดเทสสสสสสสสสสสสสสสสสสสสสสสสtest",
+    "templateList": [
+        {
+            "type": "checkBox",
+            "title": "ห้องทำงานใหญ่",
+            "min": 1,
+            "max": 1,
+            "require": true,
+            "list": [
+                {
+                    "title": "ความสะอาดของห้อง",
+                    "no": 1,
+                    "value": 0,
+                    "imageMin": 1,
+                    "imageMax": 3,
+                    "imageRequire": true
+                },
+                {
+                    "title": "ความเป็นระเบียบของห้อง",
+                    "no": 2,
+                    "value": 0,
+                    "imageMin": 1,
+                    "imageMax": 3,
+                    "imageRequire": true
+                },
+                {
+                    "title": "ความสะอาดของโต๊ะทำงาน",
+                    "no": 3,
+                    "value": 0,
+                    "imageMin": 1,
+                    "imageMax": 3,
+                    "imageRequire": true
+                }
+            ]
+        },
+        {
+            "type": "radio",
+            "title": "ห้องทำงานใหญ่",
+            "min": 1,
+            "max": 1,
+            "require": true,
+            "list": [
+                {
+                    "title": "กวาดขยะ",
+                    "no": 1,
+                    "value": 0,
+                    "imageMin": 1,
+                    "imageMax": 3,
+                    "imageRequire": true
+                },
+                {
+                    "title": "ความสะอาด",
+                    "no": 2,
+                    "value": 0,
+                    "imageMin": 1,
+                    "imageMax": 3,
+                    "imageRequire": true
+                },
+                {
+                    "title": "ความเป็นระเบียบ",
+                    "no": 3,
+                    "value": 0,
+                    "imageMin": 1,
+                    "imageMax": 3,
+                    "imageRequire": true
+                }
+            ]
+        },
+        {
+            "type": "text",
+            "title": "เพิ่มเติ่ม",
+            "min": 1,
+            "max": 1,
+            "require": true,
+            "list": [
+                {
+                    "title": "ปรับปรุง",
+                    "no": 1,
+                    "value": 0,
+                    "imageMin": 1,
+                    "imageMax": 3,
+                    "imageRequire": true
+                }
+            ]
+        },
+        {
+            "type": "textarea",
+            "title": "รายละเอียดเพิ่มเติม",
+            "min": 1,
+            "max": 1,
+            "require": true,
+            "list": [
+                {
+                    "title": "ปรับปรุง",
+                    "no": 1,
+                    "value": 0,
+                    "imageMin": 1,
+                    "imageMax": 3,
+                    "imageRequire": true
+                }
+            ]
+        },
+        {
+            "type": "multiSelect",
+            "title": "ห้องทำงานใหญ่",
+            "min": 1,
+            "max": 3,
+            "require": true,
+            "list": [
+                {
+                    "title": "ความสะอาดของห้อง",
+                    "no": 1,
+                    "value": 0,
+                    "imageMin": 1,
+                    "imageMax": 3,
+                    "imageRequire": true
+                },
+                {
+                    "title": "ความสะอาดของโต๊ะทำงาน",
+                    "no": 2,
+                    "value": 0,
+                    "imageMin": 1,
+                    "imageMax": 3,
+                    "imageRequire": true
+                },
+                {
+                    "title": "ความเป็นระเบียบของห้อง",
+                    "no": 3,
+                    "value": 3,
+                    "imageMin": 1,
+                    "imageMax": 3,
+                    "imageRequire": true
+                }
+            ]
+        }
+    ]
+}
