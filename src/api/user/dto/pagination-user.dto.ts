@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import moment from 'moment';
+import { UserDB, UserDBGender, UserDBPrefix, UserDBRole } from './../../../entities/user.entity';
 import { ResStatus } from './../../../share/enum/res-status.enum';
-import { UserDB, UserDBGender, UserDBPosition, UserDBPrefix, UserDBRole } from './../../../entities/user.entity';
 
 export class UserPaginationDTO {
     @ApiProperty({
@@ -34,9 +34,6 @@ export class UserPaginationResDTOResDatas {
     @ApiProperty()
     username: String;
 
-    @ApiProperty()
-    nickname: String;
-
     @ApiProperty({
         enum: Object.keys(UserDBPrefix).map((k) => UserDBPrefix[k]),
         example: UserDBPrefix.Mr,
@@ -48,12 +45,6 @@ export class UserPaginationResDTOResDatas {
 
     @ApiProperty()
     lastName: String;
-
-    @ApiProperty({
-        enum: Object.keys(UserDBPosition).map((k) => UserDBPosition[k]),
-        example: UserDBPosition.estimate,
-    })
-    position: String;
 
     @ApiProperty()
     phoneNumber: String;
@@ -138,11 +129,9 @@ export class UserPaginationResDTO {
                 const _data = new UserPaginationResDTOResDatas();
                 _data.id = item.id;
                 _data.username = item.username;
-                _data.nickname = item.nickname;
                 _data.prefix = item.prefix;
                 _data.firstName = item.firstName;
                 _data.lastName = item.lastName;
-                _data.position = item.position;
                 _data.phoneNumber = item.phoneNumber;
                 _data.imageUser = item.imageUser;
                 _data.gender = item.gender;

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { UserDB, UserDBGender, UserDBPosition, UserDBPrefix, UserDBRole } from '../../../entities/user.entity';
+import { UserDB, UserDBGender, UserDBPrefix, UserDBRole } from '../../../entities/user.entity';
 import { ConfigService } from './../../../config/config.service';
 import { ResStatus } from './../../../share/enum/res-status.enum';
 
@@ -19,18 +19,10 @@ export class FindOneUserByIdResDto {
     prefix: UserDBPrefix;
 
     @ApiProperty()
-    nickname: string;
-
-    @ApiProperty()
     firstName: string;
 
     @ApiProperty()
     lastName: string;
-
-    @ApiProperty({
-        enum: Object.keys(UserDBPosition).map((k) => UserDBPosition[k]),
-    })
-    position: UserDBPosition;
 
     @ApiProperty()
     phoneNumber: string;
@@ -76,11 +68,9 @@ export class FindOneUserDTO {
         if (!!datas) {
             this.resData.id = datas._id;
             this.resData.username = datas.username;
-            this.resData.nickname = datas.nickname;
             this.resData.prefix = datas.prefix;
             this.resData.firstName = datas.firstName;
             this.resData.lastName = datas.lastName;
-            this.resData.position = datas.position;
             this.resData.phoneNumber = datas.phoneNumber;
             this.resData.imageUser = datas.imageUser ? config.imagePath().userImagePath + '/' + datas.imageUser : '';
             this.resData.gender = datas.gender;

@@ -18,11 +18,6 @@ export class UpdateUserReqDto {
     @ApiProperty()
     @IsString()
     @IsNotEmpty()
-    position: string;
-
-    @ApiProperty()
-    @IsString()
-    @IsNotEmpty()
     phoneNumber: string;
 
     @ApiProperty()
@@ -39,9 +34,6 @@ export class UpdateUserResDTOData {
 
     @ApiProperty()
     password: string;
-
-    @ApiProperty()
-    position: string;
 
     @ApiProperty()
     phoneNumber: string;
@@ -78,7 +70,6 @@ export class UpdateUserResDTO {
             this.resData.id  = datas._id;
             this.resData.username = datas.username;
             this.resData.password = datas.password;
-            this.resData.position = datas.position;
             this.resData.phoneNumber = datas.phoneNumber;
             this.resData.imageUser = datas.imageUser ? config.imagePath().userImagePath + '/' + datas.imageUser : '';
         }

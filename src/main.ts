@@ -41,9 +41,9 @@ async function bootstrap() {
 
     // ────────────────────────────────────────────────────────────────────────────────
 
-    // const pathImageUser = pathUploadPath + '/image-user';
-    // if (!fs.existsSync(pathImageUser)) fs.mkdirSync(pathImageUser);
-    // app.useStaticAssets(path.resolve(__dirname, './../upload', 'image-user'), { prefix: '/userImage' });
+    const pathImageUser = pathUploadPath + '/image-user';
+    if (!fs.existsSync(pathImageUser)) fs.mkdirSync(pathImageUser);
+    app.useStaticAssets(path.resolve(__dirname, './../upload', 'image-user'), { prefix: '/userImage' });
 
     // const pathAssessment = pathUploadPath + '/imageAssessment';
     // if (!fs.existsSync(pathAssessment)) fs.mkdirSync(pathAssessment);

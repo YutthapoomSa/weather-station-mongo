@@ -12,11 +12,6 @@ export enum UserDBGender {
     OTHER = 'อื่นๆ',
 }
 
-export enum UserDBPosition {
-    estimate = 'ประเมินพื้นที่',
-    checkList = 'ตรวจสอบพื้นที่',
-}
-
 export enum UserDBPrefix {
     Miss = 'นางสาว',
     Mrs = 'นาง',
@@ -44,12 +39,6 @@ export class UserDB extends Document {
     password: string;
 
     @Prop({
-        type: MongooseSchema.Types.String,
-        required: true,
-    })
-    nickname: string;
-
-    @Prop({
         enum: Object.keys(UserDBPrefix).map((k) => UserDBPrefix[k]),
         required: true,
     })
@@ -66,12 +55,6 @@ export class UserDB extends Document {
         required: true,
     })
     lastName: string;
-
-    @Prop({
-        enum: Object.keys(UserDBPosition).map((k) => UserDBPosition[k]),
-        required: true,
-    })
-    position: UserDBPosition;
 
     @Prop({
         type: MongooseSchema.Types.String,

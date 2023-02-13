@@ -11,15 +11,10 @@ import { PaginationService } from './../../services/pagination.service';
 import { ResStatus } from './../../share/enum/res-status.enum';
 import { JwtPayload } from './auth/jwt-payload.model';
 import { CreateUserDto } from './dto/createUser.dto';
-import { CreateWorkListReqDTO, CreateWorkListResDTO } from './dto/createWorkList';
-import { FindOneWorkListDTO } from './dto/find-one-work-list.dto';
 import { FindAllUserResDTO } from './dto/findAll-user.dto';
 import { FindOneUserDTO } from './dto/findOne-user.dto';
 import { LoginUserResDTO } from './dto/login-user.dto';
 import { LoginDTO } from './dto/login.dto';
-import { ResDeleteWorkListDto } from './dto/res-delete-worklist.dto';
-import { ResUpdateWorkListDTOList } from './dto/res-updateWorkList.dto';
-import { UpdateWorkListReqDTO } from './dto/update-work-list.dto';
 import { UpdateUserReqDto, UpdateUserResDTO } from './dto/updateUser.dto';
 import { UserRepository } from './user.repository';
 moment.tz.setDefault('Asia/Bangkok');
@@ -36,32 +31,6 @@ export class UserService {
     ) { }
 
     // [resData]────────────────────────────────────────────────────────────────────────────────
-
-    private resUser(user: UserDB) {
-        const tag = this.resUser.name;
-        try {
-            return {
-                id: user._id,
-                username: user.username,
-                password: user.password,
-                prefix: user.prefix,
-                nickname: user.nickname,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                position: user.position,
-                phoneNumber: user.phoneNumber,
-                // imageUser: user.imageUser,
-                gender: user.gender,
-                role: user.role,
-                createdAt: moment(user.createdAt).format('YYYY-MM-DD HH:mm:ss'),
-            };
-        } catch (error) {
-            this.logger.error(`${tag} -> `, error);
-            throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    // ────────────────────────────────────────────────────────────────────────────────
 
     async createUser(createUserDto: CreateUserDto) {
         const tag = this.createUser.name;
@@ -123,20 +92,7 @@ export class UserService {
         }
     }
 
-    // async update(id: string, body: CreateUserDto){
-    //     const tag = this.update.name;
-    //     try {
-    //         const resultUpdate = await this.userRepository.updateUser(id,body);
-    //         return resultUpdate;
-    //     } catch (error) {
-    //         this.logger.error(`${tag} -> `, error);
-    //         throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
-
     // ────────────────────────────────────────────────────────────────────────────────
-
-
     async deleteUserByUserId(userId: string, user: UserDB) {
         const tag = this.deleteUserByUserId.name;
         try {
@@ -185,155 +141,6 @@ export class UserService {
 
     // ─────────────────────────────────────────────────────────────────────────────
 
-    // async findWorkListById(user: UserDB, _userId: string, workListId: string): Promise<FindOneWorkListDTO> {
-    async findWorkListById(user: UserDB, _userId: string, workListId: string) {
-        const tag = this.findWorkListById.name;
-        try {
-            let userId: string = null;
-
-            if (user.role === UserDBRole.Admin) {
-                userId = _userId;
-            } else {
-                userId = user.id;
-            }
-
-            const resultWorkList = await this.userRepository.findWorkListByUserId(userId);
-            // if (resultWorkList.workList.length > 0) {
-            //     return new FindOneWorkListDTO(ResStatus.success, '', resultWorkList);
-            // }
-            // return new FindOneWorkListDTO(ResStatus.fail, 'ไม่พบข้อมูล', resultWorkList);
-
-            return resultWorkList;
-        } catch (error) {
-            this.logger.error(`${tag} -> `, error);
-            throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    // ─────────────────────────────────────────────────────────────────────────────
-
-    // async findAllWorkList(userId: string): Promise<FindOneWorkListDTO> {
-    async findAllWorkListByUserId(userId: string) {
-        const tag = this.findAllWorkListByUserId.name;
-        try {
-            const resultWorkListByUserId = await this.userRepository.findWorkListByUserId(userId);
-            return new FindOneWorkListDTO(ResStatus.success, '', resultWorkListByUserId);
-        } catch (error) {
-            this.logger.error(`${tag} -> `, error);
-            throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    // async findIsInWorkListZone(userId: string, zoneId: string) {
-    //     const tag = this.findIsInWorkListZone.name;
-    //     try {
-    //         const resultIsIn = await this.userRepository.findIsInWorkListZone(userId, zoneId);
-    //         return resultIsIn;
-    //     } catch (error) {
-    //         this.logger.error(`${tag} -> `, error);
-    //         throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
-
-    // ─────────────────────────────────────────────────────────────────────────────
-
-    // async createWorkList(user: UserDB, body: CreateWorkListReqDTO): Promise<CreateWorkListResDTO> {
-    //     const tag = this.createWorkList.name;
-    //     try {
-    //         let userId: string = null;
-
-    //         if (user.role === UserDBRole.Admin) {
-    //             userId = body.userId;
-    //         } else {
-    //             userId = user._id;
-    //         }
-    //         const resultWorkList: any = await this.userRepository.addWorkList(userId, body);
-
-    //         if (!!resultWorkList && resultWorkList.workList.length > 0) {
-    //             return new CreateWorkListResDTO(ResStatus.success, '', resultWorkList);
-    //         }
-    //         return new CreateWorkListResDTO(ResStatus.fail, 'ไม่พบข้อมูล', resultWorkList);
-    //     } catch (error) {
-    //         this.logger.error(`${tag} -> `, error);
-    //         throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
-    // ─────────────────────────────────────────────────────────────────────────────
-
-    async updateWork(user: UserDB, userIdParam: string, body: UpdateWorkListReqDTO): Promise<FindOneWorkListDTO> {
-        const tag = this.updateWork.name;
-        try {
-            let userId: string = null;
-
-            if (user.role === UserDBRole.Admin) {
-                userId = userIdParam;
-            } else {
-                const isFind = await this.isUserAndWorkList(user.id, body.workListId);
-                if (!isFind) {
-                    throw new Error('no authorized.');
-                }
-                userId = userIdParam;
-            }
-            const result = await this.userRepository.updateWorkList(userId, body);
-
-            if (result) {
-                return new ResUpdateWorkListDTOList(ResStatus.success, 'อัพเดทงานสำเร็จ', result);
-            } else {
-                return new ResUpdateWorkListDTOList(ResStatus.success, 'อัพเดทไม่สำเร็จโปรดลองใหม่อีกครั้งในภายหลัง !', result);
-            }
-
-            // return result;
-        } catch (error) {
-            this.logger.error(`${tag} -> `, error);
-            throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────────
-
-    async deleteWorkList(user: UserDB, userId: string, workListId: string): Promise<ResDeleteWorkListDto> {
-        const tag = this.deleteWorkList.name;
-
-        try {
-            let _userId: string = null;
-
-            if (user.role === UserDBRole.Admin) {
-                _userId = userId;
-            } else {
-                const isFind = await this.isUserAndWorkList(user.id, workListId);
-                if (!isFind) {
-                    throw new Error('no authorized.');
-                }
-                _userId = user.id;
-            }
-            const result = await this.userRepository.deleteWorkList(_userId, workListId);
-
-            if (result >= 1) {
-                return new ResDeleteWorkListDto(ResStatus.success, 'ลบข้อมูลสำเร็จ', null);
-            } else {
-                return new ResDeleteWorkListDto(ResStatus.success, 'เกิดข้อผิดพลาดโปรดลองใหม่อีกครั้งในภายหลัง', null);
-            }
-        } catch (error) {
-            this.logger.error(`${tag} -> `, error);
-            throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────────
-    // เช็คว่า user คนนี้จริงไหมที่จะทำอะไรก็ตามแต่กับ worklist
-
-    async isUserAndWorkList(_userId: string, workListId: string) {
-        console.log('id after login : ', _userId);
-        const tag = this.isUserAndWorkList.name;
-        try {
-            const result = this.userRepository.isUserAndWorkList(_userId, workListId);
-            return result;
-        } catch (error) {
-            this.logger.error(`${tag} -> `, error);
-            throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────────
     async findOne(id: string) {
         const tag = this.findOne.name;
         try {

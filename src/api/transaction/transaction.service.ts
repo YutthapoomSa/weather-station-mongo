@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, OnApplicationBootstrap } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import moment from 'moment';
 import mongoose, { Model } from 'mongoose';
@@ -6,6 +6,7 @@ import { TransactionDB } from './../../entities/transaction.entity';
 import { LogService } from './../../services/log.service';
 import { ResStatus } from './../../share/enum/res-status.enum';
 import { CreateResTransaction, CreateResTransactionData, CreateTransactionDto } from './dto/create-transaction.dto';
+import { FindOneTransactionDTO } from './dto/find-one.dto';
 
 const lineNotify = require('line-notify-nodejs')('d3K7eG2kRtKVOA7RYQqESarSUwqQHGCvBjgQInDWN0E');
 @Injectable()
@@ -46,6 +47,21 @@ export class TransactionService implements OnApplicationBootstrap {
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
+    }
+
+    async findOne(_id: string) {
+        let transaction: TransactionDB;
+        try {
+            transaction = await this.transactionModel.findById({ _id: _id }, '-__v');
+        } catch (error) {
+            throw new InternalServerErrorException(error);
+        }
+
+        if (!transaction) {
+            throw new NotFoundException('User not found');
+        }
+
+        return new FindOneTransactionDTO(ResStatus.success, 'สำเร็จ', transaction);
     }
 
     async lineNotifySend(event: string, body: CreateTransactionDto) {

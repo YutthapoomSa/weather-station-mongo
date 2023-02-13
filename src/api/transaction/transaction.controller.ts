@@ -1,5 +1,5 @@
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CreateResTransaction, CreateTransactionDto } from './dto/create-transaction.dto';
 import { TransactionService } from './transaction.service';
 import { LogService } from './../../services/log.service';
@@ -16,5 +16,12 @@ export class TransactionController {
     @ApiOkResponse({ type: CreateResTransaction })
     async create(@Body() createTransactionDto: CreateTransactionDto) {
         return await this.transactionService.create(createTransactionDto);
+    }
+
+    @Get('/getUserById/:id')
+    // @ApiBearerAuth()
+    // @UseGuards(AuthGuard('jwt'))
+    async getCompanyById(@Param('id') id: string) {
+        return await this.transactionService.findOne(`${id}`);
     }
 }

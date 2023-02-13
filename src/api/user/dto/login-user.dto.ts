@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ResStatus } from './../../../share/enum/res-status.enum';
 import { ConfigService } from './../../../config/config.service';
-import { UserDB, UserDBGender, UserDBPosition, UserDBPrefix, UserDBRole } from './../../../entities/user.entity';
+import { UserDB, UserDBGender, UserDBPrefix, UserDBRole } from './../../../entities/user.entity';
+import { ResStatus } from './../../../share/enum/res-status.enum';
 
 class LoginUserResDTOResData {
     @ApiProperty()
@@ -9,9 +9,6 @@ class LoginUserResDTOResData {
 
     @ApiProperty()
     username: String;
-
-    @ApiProperty()
-    nickname: String;
 
     @ApiProperty({
         enum: Object.keys(UserDBPrefix).map((k) => UserDBPrefix[k]),
@@ -23,11 +20,6 @@ class LoginUserResDTOResData {
 
     @ApiProperty()
     lastName: String;
-
-    @ApiProperty({
-        enum: Object.keys(UserDBPosition).map((k) => UserDBPosition[k]),
-    })
-    position: UserDBPosition;
 
     @ApiProperty()
     phoneNumber: String;
@@ -81,11 +73,9 @@ export class LoginUserResDTO {
         if (!!datas) {
             this.resData.id = datas._id;
             this.resData.username = datas.username;
-            this.resData.nickname = datas.nickname;
             this.resData.prefix = datas.prefix;
             this.resData.firstName = datas.firstName;
             this.resData.lastName = datas.lastName;
-            this.resData.position = datas.position;
             this.resData.phoneNumber = datas.phoneNumber;
             this.resData.imageUser = datas.imageUser ? config.imagePath().userImagePath + '/' + datas.imageUser : '';
             this.resData.gender = datas.gender;

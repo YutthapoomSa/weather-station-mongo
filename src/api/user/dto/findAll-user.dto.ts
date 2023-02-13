@@ -7,43 +7,11 @@ export class FindAllUserResDTOData {
     @ApiProperty()
     id: ObjectId;
 
-    // @ApiProperty()
-    // username: string;
-
-    // @ApiProperty()
-    // nickname: string;
-
-    // @ApiProperty({
-    //     enum: Object.keys(UserDBPrefix).map((k) => UserDBPrefix[k]),
-    // })
-    // prefix: UserDBPrefix;
-
     @ApiProperty()
     firstName: string;
 
     @ApiProperty()
     lastName: string;
-
-    // @ApiProperty({
-    //     enum: Object.keys(UserDBPosition).map((k) => UserDBPosition[k]),
-    // })
-    // position: UserDBPosition;
-
-    // @ApiProperty()
-    // phoneNumber: string;
-
-    // @ApiProperty()
-    // imageUser: string;
-
-    // @ApiProperty({
-    //     enum: Object.keys(UserDBGender).map((k) => UserDBGender[k]),
-    // })
-    // gender: UserDBGender;
-
-    // @ApiProperty({
-    //     enum: Object.keys(UserDBRole).map((k) => UserDBRole[k]),
-    // })
-    // role: UserDBRole;
 }
 
 export class FindAllUserResDTO {
@@ -74,16 +42,8 @@ export class FindAllUserResDTO {
             for (const iterator of datas) {
                 const _data = new FindAllUserResDTOData();
                 _data.id = iterator._id;
-                // _data.username = iterator.username;
-                // _data.nickname = iterator.nickname;
-                // _data.prefix = iterator.prefix;
                 _data.firstName = iterator.firstName;
                 _data.lastName = iterator.lastName;
-                // _data.position = iterator.position;
-                // _data.phoneNumber = iterator.phoneNumber;
-                // // _data.imageUser = iterator.imageUser ? config.imagePath().userImagePath + '/' + datas.imageUser : '';
-                // _data.gender = iterator.gender;
-                // _data.role = iterator.role;
                 this.resData.push(_data);
             }
         }

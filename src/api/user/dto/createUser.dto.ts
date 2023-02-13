@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { UserDBGender, UserDBPosition, UserDBPrefix, UserDBRole } from './../../../entities/user.entity';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { UserDBGender, UserDBPrefix, UserDBRole } from './../../../entities/user.entity';
 
 export class CreateUserDto {
     @ApiProperty()
@@ -23,24 +23,12 @@ export class CreateUserDto {
     @ApiProperty()
     @IsString()
     @IsNotEmpty()
-    nickname: string;
-
-    @ApiProperty()
-    @IsString()
-    @IsNotEmpty()
     firstName: string;
 
     @ApiProperty()
     @IsString()
     @IsNotEmpty()
     lastName: string;
-
-    @ApiProperty({
-        enum: Object.keys(UserDBPosition).map((k) => UserDBPosition[k]),
-    })
-    @IsNotEmpty()
-    @IsString()
-    position: UserDBPosition;
 
     @ApiProperty()
     @IsString()
